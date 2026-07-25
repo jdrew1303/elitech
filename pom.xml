@@ -44,6 +44,13 @@
             <version>2.10.3</version>
         </dependency>
 
+        <!-- JFreeChart for PDF report charts rendering -->
+        <dependency>
+            <groupId>org.jfree</groupId>
+            <artifactId>jfreechart</artifactId>
+            <version>1.5.4</version>
+        </dependency>
+
         <!-- JUnit 5 for robust unit testing -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>

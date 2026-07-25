@@ -1,17 +1,28 @@
 package elitech.report;
 
 import com.lowagie.text.*;
+import com.lowagie.text.Font;
+import com.lowagie.text.Image;
 import com.lowagie.text.pdf.*;
 import elitech.model.Parameters;
 import elitech.model.Record;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.DefaultCategoryDataset;
 
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 /**
- * Exports Elitech data logger configuration, record list, and calculated statistics into PDF format using OpenPDF.
+ * Exports Elitech data logger configuration, record list, and calculated statistics
+ * along with a high-quality temperature over time visualization chart into PDF format using OpenPDF.
  */
 public class PdfExporter {
 
@@ -83,6 +94,46 @@ public class PdfExporter {
             statsTable.addCell(new PdfPCell(new Phrase("Marks", headerFont)));
             statsTable.addCell(new PdfPCell(new Phrase(String.valueOf(stats.getMarkCount()), normalFont)));
             document.add(statsTable);
+
+            // Chart Section
+            Paragraph secChart = new Paragraph("Temperature Curve over Time", sectionFont);
+            secChart.setSpacingAfter(5);
+            document.add(secChart);
+
+            // Build JFreeChart dataset
+            DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+            DateTimeFormatter chartTimeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+            for (Record r : records) {
+                dataset.addValue(r.getTemperature(), "Temperature", r.getTime().format(chartTimeFormatter));
+            }
+
+            JFreeChart chart = ChartFactory.createLineChart(
+                    "Temperature Curve",
+                    "Time",
+                    "Temperature (C)",
+                    dataset,
+                    PlotOrientation.VERTICAL,
+                    false,
+                    true,
+                    false
+            );
+
+            // Style the chart
+            chart.setBackgroundPaint(Color.white);
+            chart.getCategoryPlot().setBackgroundPaint(new Color(240, 240, 240));
+            chart.getCategoryPlot().setRangeGridlinePaint(Color.lightGray);
+
+            // Render chart to Buffered Image
+            BufferedImage bufferedImage = chart.createBufferedImage(500, 250);
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            ImageIO.write(bufferedImage, "png", baos);
+            byte[] imageBytes = baos.toByteArray();
+
+            // Insert JFreeChart Image into PDF Document
+            Image chartImage = Image.getInstance(imageBytes);
+            chartImage.setAlignment(Element.ALIGN_CENTER);
+            chartImage.setSpacingAfter(15);
+            document.add(chartImage);
 
             // Log Records Section
             Paragraph secRecords = new Paragraph("Recorded Log Data", sectionFont);
