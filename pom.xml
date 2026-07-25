@@ -58,6 +58,13 @@
             <version>1.5.4</version>
         </dependency>
 
+        <!-- JasperReports for professional reporting -->
+        <dependency>
+            <groupId>net.sf.jasperreports</groupId>
+            <artifactId>jasperreports</artifactId>
+            <version>6.21.5</version>
+        </dependency>
+
         <!-- JUnit 5 for robust unit testing -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>

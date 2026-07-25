@@ -132,4 +132,28 @@ public class ElitechSdkTest {
         assertTrue(tempPdf.exists() && tempPdf.length() > 0);
         assertTrue(tempExcel.exists() && tempExcel.length() > 0);
     }
+
+    @Test
+    public void testJasperExporter() throws Exception {
+        Parameters params = new USBParameters();
+        params.setSerialNum("EFI216101650");
+        params.setDeviceName("RC-5+");
+        params.setSensorTypeValue(1); // Enable temperature
+
+        List<Record> records = new ArrayList<>();
+        // Add records that will generate a temperature curve and trigger an alarm check
+        records.add(new Record(LocalDateTime.now().minusHours(2), 22.5, null, false, false, false, "Normal", "None"));
+        records.add(new Record(LocalDateTime.now().minusHours(1).minusMinutes(30), 18.2, null, false, false, false, "Normal", "None"));
+        records.add(new Record(LocalDateTime.now().minusHours(1), 20.1, null, false, false, false, "Normal", "None"));
+        records.add(new Record(LocalDateTime.now().minusMinutes(30), 23.0, null, false, false, false, "Normal", "None"));
+        records.add(new Record(LocalDateTime.now(), 24.1, null, false, false, false, "Normal", "None"));
+
+        File tempJasperPdf = File.createTempFile("elitech_jasper_report", ".pdf");
+        tempJasperPdf.deleteOnExit();
+
+        elitech.report.JasperExporter.exportToPdf(tempJasperPdf.getAbsolutePath(), params, records);
+
+        assertTrue(tempJasperPdf.exists());
+        assertTrue(tempJasperPdf.length() > 0);
+    }
 }

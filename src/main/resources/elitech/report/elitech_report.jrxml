@@ -1,0 +1,803 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd"
+              name="elitech_report"
+              pageWidth="595"
+              pageHeight="842"
+              columnWidth="523"
+              leftMargin="36"
+              rightMargin="36"
+              topMargin="36"
+              bottomMargin="36"
+              uuid="eb6ba9d4-c4e1-45da-9669-e5f80bfb9815">
+
+    <style name="Default" isDefault="true" fontName="SansSerif" fontSize="8"/>
+    <style name="Bold" fontName="SansSerif" fontSize="8" isBold="true"/>
+    <style name="SectionHeader" fontName="SansSerif" fontSize="9" isBold="true" backcolor="#E0E0E0" mode="Opaque"/>
+    <style name="Title" fontName="SansSerif" fontSize="18" isBold="true" forecolor="#0000FF"/>
+
+    <!-- Parameters -->
+    <parameter name="DeviceCode" class="java.lang.String"/>
+    <parameter name="SerialNumber" class="java.lang.String"/>
+    <parameter name="ModeCode" class="java.lang.String"/>
+    <parameter name="ProbeType" class="java.lang.String"/>
+    <parameter name="FirmwareVersion" class="java.lang.String"/>
+
+    <parameter name="TripId" class="java.lang.String"/>
+    <parameter name="Description" class="java.lang.String"/>
+    <parameter name="MarkEvent" class="java.lang.String"/>
+
+    <parameter name="StartMode" class="java.lang.String"/>
+    <parameter name="StartDelay" class="java.lang.String"/>
+    <parameter name="TimeBase" class="java.lang.String"/>
+    <parameter name="LogInterval" class="java.lang.String"/>
+    <parameter name="RingBuffer" class="java.lang.String"/>
+    <parameter name="StopMode" class="java.lang.String"/>
+
+    <parameter name="AlarmZone_H3" class="java.lang.String"/>
+    <parameter name="AlarmZone_H3_Time" class="java.lang.String"/>
+    <parameter name="AlarmZone_H3_Type" class="java.lang.String"/>
+    <parameter name="AlarmZone_H3_Total" class="java.lang.String"/>
+    <parameter name="AlarmZone_H3_Violations" class="java.lang.String"/>
+    <parameter name="AlarmZone_H3_Status" class="java.lang.String"/>
+
+    <parameter name="AlarmZone_H2" class="java.lang.String"/>
+    <parameter name="AlarmZone_H2_Time" class="java.lang.String"/>
+    <parameter name="AlarmZone_H2_Type" class="java.lang.String"/>
+    <parameter name="AlarmZone_H2_Total" class="java.lang.String"/>
+    <parameter name="AlarmZone_H2_Violations" class="java.lang.String"/>
+    <parameter name="AlarmZone_H2_Status" class="java.lang.String"/>
+
+    <parameter name="AlarmZone_H1" class="java.lang.String"/>
+    <parameter name="AlarmZone_H1_Time" class="java.lang.String"/>
+    <parameter name="AlarmZone_H1_Type" class="java.lang.String"/>
+    <parameter name="AlarmZone_H1_Total" class="java.lang.String"/>
+    <parameter name="AlarmZone_H1_Violations" class="java.lang.String"/>
+    <parameter name="AlarmZone_H1_Status" class="java.lang.String"/>
+
+    <parameter name="AlarmZone_Ideal" class="java.lang.String"/>
+    <parameter name="AlarmZone_Ideal_Time" class="java.lang.String"/>
+    <parameter name="AlarmZone_Ideal_Type" class="java.lang.String"/>
+    <parameter name="AlarmZone_Ideal_Total" class="java.lang.String"/>
+    <parameter name="AlarmZone_Ideal_Violations" class="java.lang.String"/>
+    <parameter name="AlarmZone_Ideal_Status" class="java.lang.String"/>
+
+    <parameter name="AlarmZone_L1" class="java.lang.String"/>
+    <parameter name="AlarmZone_L1_Time" class="java.lang.String"/>
+    <parameter name="AlarmZone_L1_Type" class="java.lang.String"/>
+    <parameter name="AlarmZone_L1_Total" class="java.lang.String"/>
+    <parameter name="AlarmZone_L1_Violations" class="java.lang.String"/>
+    <parameter name="AlarmZone_L1_Status" class="java.lang.String"/>
+
+    <parameter name="AlarmZone_L2" class="java.lang.String"/>
+    <parameter name="AlarmZone_L2_Time" class="java.lang.String"/>
+    <parameter name="AlarmZone_L2_Type" class="java.lang.String"/>
+    <parameter name="AlarmZone_L2_Total" class="java.lang.String"/>
+    <parameter name="AlarmZone_L2_Violations" class="java.lang.String"/>
+    <parameter name="AlarmZone_L2_Status" class="java.lang.String"/>
+
+    <parameter name="Highest" class="java.lang.String"/>
+    <parameter name="Lowest" class="java.lang.String"/>
+    <parameter name="Average" class="java.lang.String"/>
+    <parameter name="Mkt" class="java.lang.String"/>
+    <parameter name="AlarmAt" class="java.lang.String"/>
+    <parameter name="StartTime" class="java.lang.String"/>
+    <parameter name="StopTime" class="java.lang.String"/>
+    <parameter name="ElapsedTime" class="java.lang.String"/>
+    <parameter name="DataPoints" class="java.lang.String"/>
+
+    <parameter name="FileCreatedAt" class="java.lang.String"/>
+    <parameter name="IsAlarmed" class="java.lang.Boolean"/>
+    <parameter name="ChartImage" class="java.lang.Object"/>
+    <parameter name="FileName" class="java.lang.String"/>
+
+    <!-- Fields for Detail Data Source -->
+    <field name="time" class="java.time.LocalDateTime"/>
+    <field name="temperature" class="java.lang.Double"/>
+    <field name="humidity" class="java.lang.Double"/>
+    <field name="mark" class="java.lang.Boolean"/>
+    <field name="pause" class="java.lang.Boolean"/>
+    <field name="stop" class="java.lang.Boolean"/>
+    <field name="illumination" class="java.lang.String"/>
+    <field name="vibration" class="java.lang.String"/>
+
+    <!-- Title Band (First Page Only) -->
+    <title>
+        <band height="655" splitType="Stretch">
+            <!-- Header Section -->
+            <staticText>
+                <reportElement x="0" y="0" width="120" height="25" forecolor="#0000FF" uuid="1c96a32d-6be0-4c8d-8066-1bc8b422a550"/>
+                <textElement verticalAlignment="Middle">
+                    <font fontName="SansSerif" size="16" isBold="true"/>
+                </textElement>
+                <text><![CDATA[DATA LOG]]></text>
+            </staticText>
+
+            <textField>
+                <reportElement x="120" y="5" width="220" height="15" forecolor="#333333" uuid="7df72288-fa08-469b-9c2b-e48d3db0df9c"/>
+                <textElement verticalAlignment="Bottom">
+                    <font fontName="SansSerif" size="8"/>
+                </textElement>
+                <textFieldExpression><![CDATA["File Created At: " + $P{FileCreatedAt}]]></textFieldExpression>
+            </textField>
+
+            <line>
+                <reportElement x="0" y="22" width="340" height="1" forecolor="#000000" uuid="099277f9-2c09-41e9-9be9-a1b7e28dbdf3"/>
+            </line>
+
+            <!-- Alarm Stamp on Top Right -->
+            <image scaleImage="RetainShape" hAlign="Center" vAlign="Middle">
+                <reportElement x="430" y="0" width="80" height="40" uuid="7c2f6d54-a745-424a-bf65-f9a8cf6fbdb0"/>
+                <!-- Wait, let's just use text for alarm/normal for perfect simplicity and robustness! -->
+            </image>
+
+            <!-- Alarm Indicator Text -->
+            <textField>
+                <reportElement x="420" y="0" width="103" height="20" forecolor="#FF0000" uuid="bcbc0565-df0a-4876-b6b6-da99cc2f6c0d">
+                    <printWhenExpression><![CDATA[$P{IsAlarmed}]]></printWhenExpression>
+                </reportElement>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font fontName="SansSerif" size="14" isBold="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA["ALARM"]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="420" y="20" width="103" height="15" forecolor="#FF0000" uuid="bcbc0565-df0a-4876-b6b6-da99cc2f6c0e">
+                    <printWhenExpression><![CDATA[$P{IsAlarmed}]]></printWhenExpression>
+                </reportElement>
+                <textElement textAlignment="Center" verticalAlignment="Top">
+                    <font fontName="SansSerif" size="8" isBold="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA["ALARM STATUS"]]></textFieldExpression>
+            </textField>
+
+            <textField>
+                <reportElement x="420" y="0" width="103" height="20" forecolor="#008000" uuid="bcbc0565-df0a-4876-b6b6-da99cc2f6c0f">
+                    <printWhenExpression><![CDATA[!$P{IsAlarmed}]]></printWhenExpression>
+                </reportElement>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font fontName="SansSerif" size="14" isBold="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA["NORMAL"]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="420" y="20" width="103" height="15" forecolor="#008000" uuid="bcbc0565-df0a-4876-b6b6-da99cc2f6c10">
+                    <printWhenExpression><![CDATA[!$P{IsAlarmed}]]></printWhenExpression>
+                </reportElement>
+                <textElement textAlignment="Center" verticalAlignment="Top">
+                    <font fontName="SansSerif" size="8" isBold="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA["NORMAL STATUS"]]></textFieldExpression>
+            </textField>
+
+            <!-- Device Information Section -->
+            <staticText>
+                <reportElement style="SectionHeader" x="0" y="45" width="523" height="13" uuid="bd364a5c-59df-4d3b-bc8c-4a11f2a3ffbd"/>
+                <textElement verticalAlignment="Middle">
+                    <font isBold="true"/>
+                    <paragraph leftIndent="5"/>
+                </textElement>
+                <text><![CDATA[Device Information]]></text>
+            </staticText>
+
+            <staticText>
+                <reportElement style="Bold" x="0" y="62" width="80" height="12" uuid="d7729f69-d6e4-4458-ae5f-7ec822fe07b3"/>
+                <text><![CDATA[Device Code :]]></text>
+            </staticText>
+            <textField isBlankWhenNull="true">
+                <reportElement x="80" y="62" width="120" height="12" uuid="be34cd1d-6e47-41fe-8bf3-3d026bc62ff5"/>
+                <textFieldExpression><![CDATA[$P{DeviceCode}]]></textFieldExpression>
+            </textField>
+
+            <staticText>
+                <reportElement style="Bold" x="0" y="74" width="80" height="12" uuid="3d33f524-ec40-427f-94ea-55273bafeeb2"/>
+                <text><![CDATA[Serial Number :]]></text>
+            </staticText>
+            <textField isBlankWhenNull="true">
+                <reportElement x="80" y="74" width="120" height="12" uuid="371ecbc3-a28a-4d2d-8472-8877bc9a83aa"/>
+                <textFieldExpression><![CDATA[$P{SerialNumber}]]></textFieldExpression>
+            </textField>
+
+            <staticText>
+                <reportElement style="Bold" x="0" y="86" width="80" height="12" uuid="3d33f524-ec40-427f-94ea-55273baf0eb2"/>
+                <text><![CDATA[Mode Code :]]></text>
+            </staticText>
+            <textField isBlankWhenNull="true">
+                <reportElement x="80" y="86" width="120" height="12" uuid="371ecbc3-a28a-4d2d-8472-8877bc9a80aa"/>
+                <textFieldExpression><![CDATA[$P{ModeCode}]]></textFieldExpression>
+            </textField>
+
+            <staticText>
+                <reportElement style="Bold" x="260" y="62" width="100" height="12" uuid="88e7d23f-e17f-4b02-aa1b-8e12dcfdf45a"/>
+                <text><![CDATA[Probe Type :]]></text>
+            </staticText>
+            <textField isBlankWhenNull="true">
+                <reportElement x="360" y="62" width="163" height="12" uuid="2a0cb6c0-d396-41fb-94f4-0b7beae6289b"/>
+                <textFieldExpression><![CDATA[$P{ProbeType}]]></textFieldExpression>
+            </textField>
+
+            <staticText>
+                <reportElement style="Bold" x="260" y="74" width="100" height="12" uuid="09fa00c9-277d-411a-8fc8-5c42511fe09c"/>
+                <text><![CDATA[Firmware Version :]]></text>
+            </staticText>
+            <textField isBlankWhenNull="true">
+                <reportElement x="360" y="74" width="163" height="12" uuid="fcf2a02b-a0f1-460b-a010-0935cc52f36f"/>
+                <textFieldExpression><![CDATA[$P{FirmwareVersion}]]></textFieldExpression>
+            </textField>
+
+            <!-- Trip Information & Mark Event -->
+            <staticText>
+                <reportElement style="SectionHeader" x="0" y="105" width="250" height="13" uuid="40a7a40b-46cb-4034-adfa-5fa4537b0cf7"/>
+                <textElement verticalAlignment="Middle">
+                    <font isBold="true"/>
+                    <paragraph leftIndent="5"/>
+                </textElement>
+                <text><![CDATA[Trip Information]]></text>
+            </staticText>
+
+            <staticText>
+                <reportElement style="SectionHeader" x="260" y="105" width="263" height="13" uuid="41a7a40b-46cb-4034-adfa-5fa4537b0cf7"/>
+                <textElement verticalAlignment="Middle">
+                    <font isBold="true"/>
+                    <paragraph leftIndent="5"/>
+                </textElement>
+                <text><![CDATA[Mark Event]]></text>
+            </staticText>
+
+            <staticText>
+                <reportElement style="Bold" x="0" y="122" width="70" height="12" uuid="f98455e9-d757-4158-b3ba-e1762e84852e"/>
+                <text><![CDATA[Trip Id :]]></text>
+            </staticText>
+            <textField isBlankWhenNull="true">
+                <reportElement x="70" y="122" width="180" height="12" uuid="9b924db5-e51c-4b6d-a78b-3d0cf318dfc4"/>
+                <textFieldExpression><![CDATA[$P{TripId}]]></textFieldExpression>
+            </textField>
+
+            <staticText>
+                <reportElement style="Bold" x="0" y="134" width="70" height="12" uuid="f98455e9-d757-4158-b3ba-e1762e84852f"/>
+                <text><![CDATA[Description :]]></text>
+            </staticText>
+            <textField isBlankWhenNull="true">
+                <reportElement x="70" y="134" width="180" height="12" uuid="9b924db5-e51c-4b6d-a78b-3d0cf318dfc5"/>
+                <textFieldExpression><![CDATA[$P{Description}]]></textFieldExpression>
+            </textField>
+
+            <textField isBlankWhenNull="true">
+                <reportElement x="260" y="122" width="263" height="24" uuid="9b924db5-e51c-4b6d-a78b-3d0cf318dfc6"/>
+                <textFieldExpression><![CDATA[$P{MarkEvent}]]></textFieldExpression>
+            </textField>
+
+            <!-- Configuration Information Section -->
+            <staticText>
+                <reportElement style="SectionHeader" x="0" y="153" width="523" height="13" uuid="b192ea60-fb31-4be5-bc99-13fcbc5cb433"/>
+                <textElement verticalAlignment="Middle">
+                    <font isBold="true"/>
+                    <paragraph leftIndent="5"/>
+                </textElement>
+                <text><![CDATA[Configuration Information]]></text>
+            </staticText>
+
+            <staticText>
+                <reportElement style="Bold" x="0" y="170" width="80" height="12" uuid="d93962b1-5dfd-4fa0-867c-2b509ef8975a"/>
+                <text><![CDATA[Start Mode :]]></text>
+            </staticText>
+            <textField isBlankWhenNull="true">
+                <reportElement x="80" y="170" width="120" height="12" uuid="559b3fa3-206a-4c28-98f5-3cfa784860cc"/>
+                <textFieldExpression><![CDATA[$P{StartMode}]]></textFieldExpression>
+            </textField>
+
+            <staticText>
+                <reportElement style="Bold" x="0" y="182" width="80" height="12" uuid="1cb6cd27-5d2b-4781-a67b-232f03f5385d"/>
+                <text><![CDATA[Start Delay :]]></text>
+            </staticText>
+            <textField isBlankWhenNull="true">
+                <reportElement x="80" y="182" width="120" height="12" uuid="fc5e8a7c-48be-40f4-a55e-38df35cc24be"/>
+                <textFieldExpression><![CDATA[$P{StartDelay}]]></textFieldExpression>
+            </textField>
+
+            <staticText>
+                <reportElement style="Bold" x="0" y="194" width="80" height="12" uuid="ebfc402b-a010-47fa-80a5-2e0611e97dfc"/>
+                <text><![CDATA[Time Base :]]></text>
+            </staticText>
+            <textField isBlankWhenNull="true">
+                <reportElement x="80" y="194" width="120" height="12" uuid="fc6bc0c2-dd4a-4b62-9e8c-572cb52dfcf9"/>
+                <textFieldExpression><![CDATA[$P{TimeBase}]]></textFieldExpression>
+            </textField>
+
+            <staticText>
+                <reportElement style="Bold" x="260" y="170" width="100" height="12" uuid="5fa74383-e0fa-40bf-aa7a-245fdfcb9a5e"/>
+                <text><![CDATA[Log Interval :]]></text>
+            </staticText>
+            <textField isBlankWhenNull="true">
+                <reportElement x="360" y="170" width="163" height="12" uuid="ff94eb22-8fc1-460b-b5cb-3df136cc2e9d"/>
+                <textFieldExpression><![CDATA[$P{LogInterval}]]></textFieldExpression>
+            </textField>
+
+            <staticText>
+                <reportElement style="Bold" x="260" y="182" width="100" height="12" uuid="e09fa00c-277d-411a-8fc8-5c42511fe09d"/>
+                <text><![CDATA[Ring Buffer :]]></text>
+            </staticText>
+            <textField isBlankWhenNull="true">
+                <reportElement x="360" y="182" width="163" height="12" uuid="9cfc5e8a-78be-40f4-a55e-38df35cc24be"/>
+                <textFieldExpression><![CDATA[$P{RingBuffer}]]></textFieldExpression>
+            </textField>
+
+            <staticText>
+                <reportElement style="Bold" x="260" y="194" width="100" height="12" uuid="e09fa00c-277d-411a-8fc8-5c42511fe09e"/>
+                <text><![CDATA[Stop Mode :]]></text>
+            </staticText>
+            <textField isBlankWhenNull="true">
+                <reportElement x="360" y="194" width="163" height="12" uuid="9cfc5e8a-78be-40f4-a55e-38df35cc24bf"/>
+                <textFieldExpression><![CDATA[$P{StopMode}]]></textFieldExpression>
+            </textField>
+
+            <!-- Alarm Zone Section -->
+            <staticText>
+                <reportElement style="Bold" x="0" y="215" width="130" height="12" uuid="e38cf822-da9c-4903-a442-2b22bb8fa8f9"/>
+                <text><![CDATA[Alarm Zone]]></text>
+            </staticText>
+            <staticText>
+                <reportElement style="Bold" x="130" y="215" width="80" height="12" uuid="40dc12ea-9e90-449e-ba21-395bbd826c7e"/>
+                <text><![CDATA[Allow Time]]></text>
+            </staticText>
+            <staticText>
+                <reportElement style="Bold" x="210" y="215" width="80" height="12" uuid="45bc901e-c1bb-4573-a8e0-6a2c2dfdbca3"/>
+                <text><![CDATA[Alarm Type]]></text>
+            </staticText>
+            <staticText>
+                <reportElement style="Bold" x="290" y="215" width="80" height="12" uuid="b191e40a-ca8c-4f11-925a-4e8c18d9ccca"/>
+                <text><![CDATA[Total Time]]></text>
+            </staticText>
+            <staticText>
+                <reportElement style="Bold" x="370" y="215" width="70" height="12" uuid="be298ccf-79df-412f-923c-a9dfbe939bb9"/>
+                <text><![CDATA[Violations]]></text>
+            </staticText>
+            <staticText>
+                <reportElement style="Bold" x="440" y="215" width="83" height="12" uuid="fc5e8a7c-48be-40f4-a55e-38df35cc24bf"/>
+                <text><![CDATA[Status]]></text>
+            </staticText>
+
+            <line>
+                <reportElement x="0" y="228" width="523" height="1" forecolor="#000000" uuid="e98c25cf-0fa1-460b-b5cb-3df136cc2e9d"/>
+            </line>
+
+            <!-- Alarm Zone Rows -->
+            <!-- H3 -->
+            <textField isBlankWhenNull="true">
+                <reportElement x="0" y="231" width="130" height="11" uuid="8be702cb-b0f1-460b-b5cb-3df136cc2ea0"/>
+                <textFieldExpression><![CDATA[$P{AlarmZone_H3}]]></textFieldExpression>
+            </textField>
+            <textField isBlankWhenNull="true">
+                <reportElement x="130" y="231" width="80" height="11" uuid="8be702cb-b0f1-460b-b5cb-3df136cc2ea1"/>
+                <textFieldExpression><![CDATA[$P{AlarmZone_H3_Time}]]></textFieldExpression>
+            </textField>
+            <textField isBlankWhenNull="true">
+                <reportElement x="210" y="231" width="80" height="11" uuid="8be702cb-b0f1-460b-b5cb-3df136cc2ea2"/>
+                <textFieldExpression><![CDATA[$P{AlarmZone_H3_Type}]]></textFieldExpression>
+            </textField>
+            <textField isBlankWhenNull="true">
+                <reportElement x="290" y="231" width="80" height="11" uuid="8be702cb-b0f1-460b-b5cb-3df136cc2ea3"/>
+                <textFieldExpression><![CDATA[$P{AlarmZone_H3_Total}]]></textFieldExpression>
+            </textField>
+            <textField isBlankWhenNull="true">
+                <reportElement x="370" y="231" width="70" height="11" uuid="8be702cb-b0f1-460b-b5cb-3df136cc2ea4"/>
+                <textFieldExpression><![CDATA[$P{AlarmZone_H3_Violations}]]></textFieldExpression>
+            </textField>
+            <textField isBlankWhenNull="true">
+                <reportElement x="440" y="231" width="83" height="11" uuid="8be702cb-b0f1-460b-b5cb-3df136cc2ea5"/>
+                <textFieldExpression><![CDATA[$P{AlarmZone_H3_Status}]]></textFieldExpression>
+            </textField>
+
+            <!-- H2 -->
+            <textField isBlankWhenNull="true">
+                <reportElement x="0" y="243" width="130" height="11" uuid="8be702cb-b0f1-460b-b5cb-3df136cc2eb0"/>
+                <textFieldExpression><![CDATA[$P{AlarmZone_H2}]]></textFieldExpression>
+            </textField>
+            <textField isBlankWhenNull="true">
+                <reportElement x="130" y="243" width="80" height="11" uuid="8be702cb-b0f1-460b-b5cb-3df136cc2eb1"/>
+                <textFieldExpression><![CDATA[$P{AlarmZone_H2_Time}]]></textFieldExpression>
+            </textField>
+            <textField isBlankWhenNull="true">
+                <reportElement x="210" y="243" width="80" height="11" uuid="8be702cb-b0f1-460b-b5cb-3df136cc2eb2"/>
+                <textFieldExpression><![CDATA[$P{AlarmZone_H2_Type}]]></textFieldExpression>
+            </textField>
+            <textField isBlankWhenNull="true">
+                <reportElement x="290" y="243" width="80" height="11" uuid="8be702cb-b0f1-460b-b5cb-3df136cc2eb3"/>
+                <textFieldExpression><![CDATA[$P{AlarmZone_H2_Total}]]></textFieldExpression>
+            </textField>
+            <textField isBlankWhenNull="true">
+                <reportElement x="370" y="243" width="70" height="11" uuid="8be702cb-b0f1-460b-b5cb-3df136cc2eb4"/>
+                <textFieldExpression><![CDATA[$P{AlarmZone_H2_Violations}]]></textFieldExpression>
+            </textField>
+            <textField isBlankWhenNull="true">
+                <reportElement x="440" y="243" width="83" height="11" uuid="8be702cb-b0f1-460b-b5cb-3df136cc2eb5"/>
+                <textFieldExpression><![CDATA[$P{AlarmZone_H2_Status}]]></textFieldExpression>
+            </textField>
+
+            <!-- H1 -->
+            <textField isBlankWhenNull="true">
+                <reportElement x="0" y="255" width="130" height="11" uuid="8be702cb-b0f1-460b-b5cb-3df136cc2ec0"/>
+                <textFieldExpression><![CDATA[$P{AlarmZone_H1}]]></textFieldExpression>
+            </textField>
+            <textField isBlankWhenNull="true">
+                <reportElement x="130" y="255" width="80" height="11" uuid="8be702cb-b0f1-460b-b5cb-3df136cc2ec1"/>
+                <textFieldExpression><![CDATA[$P{AlarmZone_H1_Time}]]></textFieldExpression>
+            </textField>
+            <textField isBlankWhenNull="true">
+                <reportElement x="210" y="255" width="80" height="11" uuid="8be702cb-b0f1-460b-b5cb-3df136cc2ec2"/>
+                <textFieldExpression><![CDATA[$P{AlarmZone_H1_Type}]]></textFieldExpression>
+            </textField>
+            <textField isBlankWhenNull="true">
+                <reportElement x="290" y="255" width="80" height="11" uuid="8be702cb-b0f1-460b-b5cb-3df136cc2ec3"/>
+                <textFieldExpression><![CDATA[$P{AlarmZone_H1_Total}]]></textFieldExpression>
+            </textField>
+            <textField isBlankWhenNull="true">
+                <reportElement x="370" y="255" width="70" height="11" uuid="8be702cb-b0f1-460b-b5cb-3df136cc2ec4"/>
+                <textFieldExpression><![CDATA[$P{AlarmZone_H1_Violations}]]></textFieldExpression>
+            </textField>
+            <textField isBlankWhenNull="true">
+                <reportElement x="440" y="255" width="83" height="11" uuid="8be702cb-b0f1-460b-b5cb-3df136cc2ec5"/>
+                <textFieldExpression><![CDATA[$P{AlarmZone_H1_Status}]]></textFieldExpression>
+            </textField>
+
+            <!-- Ideal Region -->
+            <textField isBlankWhenNull="true">
+                <reportElement x="0" y="267" width="130" height="11" uuid="8be702cb-b0f1-460b-b5cb-3df136cc2ed0"/>
+                <textFieldExpression><![CDATA[$P{AlarmZone_Ideal}]]></textFieldExpression>
+            </textField>
+            <textField isBlankWhenNull="true">
+                <reportElement x="130" y="267" width="80" height="11" uuid="8be702cb-b0f1-460b-b5cb-3df136cc2ed1"/>
+                <textFieldExpression><![CDATA[$P{AlarmZone_Ideal_Time}]]></textFieldExpression>
+            </textField>
+            <textField isBlankWhenNull="true">
+                <reportElement x="210" y="267" width="80" height="11" uuid="8be702cb-b0f1-460b-b5cb-3df136cc2ed2"/>
+                <textFieldExpression><![CDATA[$P{AlarmZone_Ideal_Type}]]></textFieldExpression>
+            </textField>
+            <textField isBlankWhenNull="true">
+                <reportElement x="290" y="267" width="80" height="11" uuid="8be702cb-b0f1-460b-b5cb-3df136cc2ed3"/>
+                <textFieldExpression><![CDATA[$P{AlarmZone_Ideal_Total}]]></textFieldExpression>
+            </textField>
+            <textField isBlankWhenNull="true">
+                <reportElement x="370" y="267" width="70" height="11" uuid="8be702cb-b0f1-460b-b5cb-3df136cc2ed4"/>
+                <textFieldExpression><![CDATA[$P{AlarmZone_Ideal_Violations}]]></textFieldExpression>
+            </textField>
+            <textField isBlankWhenNull="true">
+                <reportElement x="440" y="267" width="83" height="11" uuid="8be702cb-b0f1-460b-b5cb-3df136cc2ed5"/>
+                <textFieldExpression><![CDATA[$P{AlarmZone_Ideal_Status}]]></textFieldExpression>
+            </textField>
+
+            <!-- L1 -->
+            <textField isBlankWhenNull="true">
+                <reportElement x="0" y="279" width="130" height="11" uuid="8be702cb-b0f1-460b-b5cb-3df136cc2ee0"/>
+                <textFieldExpression><![CDATA[$P{AlarmZone_L1}]]></textFieldExpression>
+            </textField>
+            <textField isBlankWhenNull="true">
+                <reportElement x="130" y="279" width="80" height="11" uuid="8be702cb-b0f1-460b-b5cb-3df136cc2ee1"/>
+                <textFieldExpression><![CDATA[$P{AlarmZone_L1_Time}]]></textFieldExpression>
+            </textField>
+            <textField isBlankWhenNull="true">
+                <reportElement x="210" y="279" width="80" height="11" uuid="8be702cb-b0f1-460b-b5cb-3df136cc2ee2"/>
+                <textFieldExpression><![CDATA[$P{AlarmZone_L1_Type}]]></textFieldExpression>
+            </textField>
+            <textField isBlankWhenNull="true">
+                <reportElement x="290" y="279" width="80" height="11" uuid="8be702cb-b0f1-460b-b5cb-3df136cc2ee3"/>
+                <textFieldExpression><![CDATA[$P{AlarmZone_L1_Total}]]></textFieldExpression>
+            </textField>
+            <textField isBlankWhenNull="true">
+                <reportElement x="370" y="279" width="70" height="11" uuid="8be702cb-b0f1-460b-b5cb-3df136cc2ee4"/>
+                <textFieldExpression><![CDATA[$P{AlarmZone_L1_Violations}]]></textFieldExpression>
+            </textField>
+            <textField isBlankWhenNull="true">
+                <reportElement x="440" y="279" width="83" height="11" uuid="8be702cb-b0f1-460b-b5cb-3df136cc2ee5"/>
+                <textFieldExpression><![CDATA[$P{AlarmZone_L1_Status}]]></textFieldExpression>
+            </textField>
+
+            <!-- L2 -->
+            <textField isBlankWhenNull="true">
+                <reportElement x="0" y="291" width="130" height="11" uuid="8be702cb-b0f1-460b-b5cb-3df136cc2ef0"/>
+                <textFieldExpression><![CDATA[$P{AlarmZone_L2}]]></textFieldExpression>
+            </textField>
+            <textField isBlankWhenNull="true">
+                <reportElement x="130" y="291" width="80" height="11" uuid="8be702cb-b0f1-460b-b5cb-3df136cc2ef1"/>
+                <textFieldExpression><![CDATA[$P{AlarmZone_L2_Time}]]></textFieldExpression>
+            </textField>
+            <textField isBlankWhenNull="true">
+                <reportElement x="210" y="291" width="80" height="11" uuid="8be702cb-b0f1-460b-b5cb-3df136cc2ef2"/>
+                <textFieldExpression><![CDATA[$P{AlarmZone_L2_Type}]]></textFieldExpression>
+            </textField>
+            <textField isBlankWhenNull="true">
+                <reportElement x="290" y="291" width="80" height="11" uuid="8be702cb-b0f1-460b-b5cb-3df136cc2ef3"/>
+                <textFieldExpression><![CDATA[$P{AlarmZone_L2_Total}]]></textFieldExpression>
+            </textField>
+            <textField isBlankWhenNull="true">
+                <reportElement x="370" y="291" width="70" height="11" uuid="8be702cb-b0f1-460b-b5cb-3df136cc2ef4"/>
+                <textFieldExpression><![CDATA[$P{AlarmZone_L2_Violations}]]></textFieldExpression>
+            </textField>
+            <textField isBlankWhenNull="true">
+                <reportElement x="440" y="291" width="83" height="11" uuid="8be702cb-b0f1-460b-b5cb-3df136cc2ef5"/>
+                <textFieldExpression><![CDATA[$P{AlarmZone_L2_Status}]]></textFieldExpression>
+            </textField>
+
+            <line>
+                <reportElement x="0" y="304" width="523" height="1" forecolor="#000000" uuid="e98c25cf-0fa1-460b-b5cb-3df136cc2ee9"/>
+            </line>
+
+            <!-- Logging Summary Section -->
+            <staticText>
+                <reportElement style="SectionHeader" x="0" y="315" width="523" height="13" uuid="e13cf822-da9c-4903-a442-2b22bb8fa8f9"/>
+                <textElement verticalAlignment="Middle">
+                    <font isBold="true"/>
+                    <paragraph leftIndent="5"/>
+                </textElement>
+                <text><![CDATA[Logging Summary]]></text>
+            </staticText>
+
+            <staticText>
+                <reportElement style="Bold" x="0" y="332" width="80" height="12" uuid="d93962b1-5dfd-4fa0-867c-2b509ef8975b"/>
+                <text><![CDATA[Highest :]]></text>
+            </staticText>
+            <textField isBlankWhenNull="true">
+                <reportElement x="80" y="332" width="100" height="12" uuid="559b3fa3-206a-4c28-98f5-3cfa784860cd"/>
+                <textFieldExpression><![CDATA[$P{Highest}]]></textFieldExpression>
+            </textField>
+
+            <staticText>
+                <reportElement style="Bold" x="0" y="344" width="80" height="12" uuid="1cb6cd27-5d2b-4781-a67b-232f03f5385e"/>
+                <text><![CDATA[Lowest :]]></text>
+            </staticText>
+            <textField isBlankWhenNull="true">
+                <reportElement x="80" y="344" width="100" height="12" uuid="fc5e8a7c-48be-40f4-a55e-38df35cc24bf"/>
+                <textFieldExpression><![CDATA[$P{Lowest}]]></textFieldExpression>
+            </textField>
+
+            <staticText>
+                <reportElement style="Bold" x="0" y="356" width="80" height="12" uuid="ebfc402b-a010-47fa-80a5-2e0611e97dfd"/>
+                <text><![CDATA[Average :]]></text>
+            </staticText>
+            <textField isBlankWhenNull="true">
+                <reportElement x="80" y="356" width="100" height="12" uuid="fc6bc0c2-dd4a-4b62-9e8c-572cb52dfcfa"/>
+                <textFieldExpression><![CDATA[$P{Average}]]></textFieldExpression>
+            </textField>
+
+            <staticText>
+                <reportElement style="Bold" x="0" y="368" width="80" height="12" uuid="ebfc402b-a010-47fa-80a5-2e0611e97dfe"/>
+                <text><![CDATA[MKT :]]></text>
+            </staticText>
+            <textField isBlankWhenNull="true">
+                <reportElement x="80" y="368" width="100" height="12" uuid="fc6bc0c2-dd4a-4b62-9e8c-572cb52dfcfb"/>
+                <textFieldExpression><![CDATA[$P{Mkt}]]></textFieldExpression>
+            </textField>
+
+            <staticText>
+                <reportElement style="Bold" x="0" y="380" width="80" height="12" uuid="ebfc402b-a010-47fa-80a5-2e0611e97dff"/>
+                <text><![CDATA[Alarm At(Te):]]></text>
+            </staticText>
+            <textField isBlankWhenNull="true">
+                <reportElement x="80" y="380" width="180" height="12" uuid="fc6bc0c2-dd4a-4b62-9e8c-572cb52dfcfc"/>
+                <textFieldExpression><![CDATA[$P{AlarmAt}]]></textFieldExpression>
+            </textField>
+
+            <staticText>
+                <reportElement style="Bold" x="260" y="332" width="100" height="12" uuid="5fa74383-e0fa-40bf-aa7a-245fdfcb9a5f"/>
+                <text><![CDATA[Start Time :]]></text>
+            </staticText>
+            <textField isBlankWhenNull="true">
+                <reportElement x="360" y="332" width="163" height="12" uuid="ff94eb22-8fc1-460b-b5cb-3df136cc2e9e"/>
+                <textFieldExpression><![CDATA[$P{StartTime}]]></textFieldExpression>
+            </textField>
+
+            <staticText>
+                <reportElement style="Bold" x="260" y="344" width="100" height="12" uuid="e09fa00c-277d-411a-8fc8-5c42511fe09f"/>
+                <text><![CDATA[Stop Time :]]></text>
+            </staticText>
+            <textField isBlankWhenNull="true">
+                <reportElement x="360" y="344" width="163" height="12" uuid="9cfc5e8a-78be-40f4-a55e-38df35cc24c0"/>
+                <textFieldExpression><![CDATA[$P{StopTime}]]></textFieldExpression>
+            </textField>
+
+            <staticText>
+                <reportElement style="Bold" x="260" y="356" width="100" height="12" uuid="e09fa00c-277d-411a-8fc8-5c42511fe0a0"/>
+                <text><![CDATA[Elapsed Time :]]></text>
+            </staticText>
+            <textField isBlankWhenNull="true">
+                <reportElement x="360" y="356" width="163" height="12" uuid="9cfc5e8a-78be-40f4-a55e-38df35cc24c1"/>
+                <textFieldExpression><![CDATA[$P{ElapsedTime}]]></textFieldExpression>
+            </textField>
+
+            <staticText>
+                <reportElement style="Bold" x="260" y="368" width="100" height="12" uuid="e09fa00c-277d-411a-8fc8-5c42511fe0a1"/>
+                <text><![CDATA[Data Points :]]></text>
+            </staticText>
+            <textField isBlankWhenNull="true">
+                <reportElement x="360" y="368" width="163" height="12" uuid="9cfc5e8a-78be-40f4-a55e-38df35cc24c2"/>
+                <textFieldExpression><![CDATA[$P{DataPoints}]]></textFieldExpression>
+            </textField>
+
+            <!-- Chart Legend -->
+            <staticText>
+                <reportElement x="200" y="395" width="323" height="12" uuid="ae298ccf-79df-412f-923c-a9dfbe939bb0"/>
+                <textElement textAlignment="Right" verticalAlignment="Middle">
+                    <font size="7" isBold="false"/>
+                </textElement>
+                <text><![CDATA[Normal —   Over(Te) —   Below(Te) —   Error(Te) —]]></text>
+            </staticText>
+
+            <!-- Chart Image -->
+            <image scaleImage="RetainShape" hAlign="Center" vAlign="Middle">
+                <reportElement x="0" y="410" width="523" height="230" uuid="0c8182df-e17f-4b02-aa1b-8e12dcfdf45c"/>
+                <imageExpression><![CDATA[$P{ChartImage}]]></imageExpression>
+            </image>
+
+            <!-- Page Break after First Page -->
+            <break>
+                <reportElement x="0" y="650" width="100" height="1" uuid="eb6ba9d4-c4e1-45da-9669-e5f80bfb9816"/>
+            </break>
+        </band>
+    </title>
+
+    <!-- Page Header (Only printed on pages 2+) -->
+    <pageHeader>
+        <band height="20" splitType="Stretch">
+            <printWhenExpression><![CDATA[$V{PAGE_NUMBER} > 1]]></printWhenExpression>
+            <staticText>
+                <reportElement style="Bold" x="0" y="0" width="200" height="15" uuid="cf5e8a7c-48be-40f4-a55e-38df35cc24c3"/>
+                <textElement>
+                    <font size="10"/>
+                </textElement>
+                <text><![CDATA[Recorded Log Data]]></text>
+            </staticText>
+        </band>
+    </pageHeader>
+
+    <!-- Column Header (Only printed on pages 2+) -->
+    <columnHeader>
+        <band height="20" splitType="Stretch">
+            <printWhenExpression><![CDATA[$V{PAGE_NUMBER} > 1]]></printWhenExpression>
+            <staticText>
+                <reportElement style="Bold" x="0" y="0" width="30" height="15" uuid="559b3fa3-206a-4c28-98f5-3cfa784860cd"/>
+                <textElement textAlignment="Center"/>
+                <text><![CDATA[#]]></text>
+            </staticText>
+            <staticText>
+                <reportElement style="Bold" x="30" y="0" width="120" height="15" uuid="559b3fa3-206a-4c28-98f5-3cfa784860ce"/>
+                <text><![CDATA[Timestamp]]></text>
+            </staticText>
+            <staticText>
+                <reportElement style="Bold" x="150" y="0" width="55" height="15" uuid="559b3fa3-206a-4c28-98f5-3cfa784860cf"/>
+                <textElement textAlignment="Right"/>
+                <text><![CDATA[Temp (°C)]]></text>
+            </staticText>
+            <staticText>
+                <reportElement style="Bold" x="205" y="0" width="55" height="15" uuid="559b3fa3-206a-4c28-98f5-3cfa784860d0"/>
+                <textElement textAlignment="Right"/>
+                <text><![CDATA[Humi (%)]]></text>
+            </staticText>
+            <staticText>
+                <reportElement style="Bold" x="260" y="0" width="40" height="15" uuid="559b3fa3-206a-4c28-98f5-3cfa784860d1"/>
+                <textElement textAlignment="Center"/>
+                <text><![CDATA[Mark]]></text>
+            </staticText>
+            <staticText>
+                <reportElement style="Bold" x="300" y="0" width="40" height="15" uuid="559b3fa3-206a-4c28-98f5-3cfa784860d2"/>
+                <textElement textAlignment="Center"/>
+                <text><![CDATA[Pause]]></text>
+            </staticText>
+            <staticText>
+                <reportElement style="Bold" x="340" y="0" width="40" height="15" uuid="559b3fa3-206a-4c28-98f5-3cfa784860d3"/>
+                <textElement textAlignment="Center"/>
+                <text><![CDATA[Stop]]></text>
+            </staticText>
+            <staticText>
+                <reportElement style="Bold" x="380" y="0" width="70" height="15" uuid="559b3fa3-206a-4c28-98f5-3cfa784860d4"/>
+                <textElement textAlignment="Center"/>
+                <text><![CDATA[Light]]></text>
+            </staticText>
+            <staticText>
+                <reportElement style="Bold" x="450" y="0" width="73" height="15" uuid="559b3fa3-206a-4c28-98f5-3cfa784860d5"/>
+                <textElement textAlignment="Center"/>
+                <text><![CDATA[Vibr]]></text>
+            </staticText>
+
+            <line>
+                <reportElement x="0" y="17" width="523" height="1" forecolor="#000000" uuid="e98c25cf-0fa1-460b-b5cb-3df136cc2e9e"/>
+            </line>
+        </band>
+    </columnHeader>
+
+    <!-- Detail Band (Log Records) -->
+    <detail>
+        <band height="15" splitType="Stretch">
+            <textField>
+                <reportElement x="0" y="0" width="30" height="13" uuid="e34cd1d-6e47-41fe-8bf3-3d026bc62ff5"/>
+                <textElement textAlignment="Center"/>
+                <textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+            </textField>
+            <textField isBlankWhenNull="true">
+                <reportElement x="30" y="0" width="120" height="13" uuid="e34cd1d-6e47-41fe-8bf3-3d026bc62ff6"/>
+                <textFieldExpression><![CDATA[$F{time} != null ? $F{time}.format(java.time.format.DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) : ""]]></textFieldExpression>
+            </textField>
+            <textField isBlankWhenNull="true">
+                <reportElement x="150" y="0" width="55" height="13" uuid="e34cd1d-6e47-41fe-8bf3-3d026bc62ff7"/>
+                <textElement textAlignment="Right"/>
+                <textFieldExpression><![CDATA[String.format("%.1f", $F{temperature})]]></textFieldExpression>
+            </textField>
+            <textField isBlankWhenNull="true">
+                <reportElement x="205" y="0" width="55" height="13" uuid="e34cd1d-6e47-41fe-8bf3-3d026bc62ff8"/>
+                <textElement textAlignment="Right"/>
+                <textFieldExpression><![CDATA[$F{humidity} != null ? String.format("%.1f", $F{humidity}) : "N/A"]]></textFieldExpression>
+            </textField>
+            <textField isBlankWhenNull="true">
+                <reportElement x="260" y="0" width="40" height="13" uuid="e34cd1d-6e47-41fe-8bf3-3d026bc62ff9"/>
+                <textElement textAlignment="Center"/>
+                <textFieldExpression><![CDATA[String.valueOf($F{mark})]]></textFieldExpression>
+            </textField>
+            <textField isBlankWhenNull="true">
+                <reportElement x="300" y="0" width="40" height="13" uuid="e34cd1d-6e47-41fe-8bf3-3d026bc62ffa"/>
+                <textElement textAlignment="Center"/>
+                <textFieldExpression><![CDATA[String.valueOf($F{pause})]]></textFieldExpression>
+            </textField>
+            <textField isBlankWhenNull="true">
+                <reportElement x="340" y="0" width="40" height="13" uuid="e34cd1d-6e47-41fe-8bf3-3d026bc62ffb"/>
+                <textElement textAlignment="Center"/>
+                <textFieldExpression><![CDATA[String.valueOf($F{stop})]]></textFieldExpression>
+            </textField>
+            <textField isBlankWhenNull="true">
+                <reportElement x="380" y="0" width="70" height="13" uuid="e34cd1d-6e47-41fe-8bf3-3d026bc62ffc"/>
+                <textElement textAlignment="Center"/>
+                <textFieldExpression><![CDATA[$F{illumination}]]></textFieldExpression>
+            </textField>
+            <textField isBlankWhenNull="true">
+                <reportElement x="450" y="0" width="73" height="13" uuid="e34cd1d-6e47-41fe-8bf3-3d026bc62ffd"/>
+                <textElement textAlignment="Center"/>
+                <textFieldExpression><![CDATA[$F{vibration}]]></textFieldExpression>
+            </textField>
+
+            <line>
+                <reportElement positionType="FixRelativeToBottom" x="0" y="14" width="523" height="1" forecolor="#E0E0E0" uuid="e34cd1d-6e47-41fe-8bf3-3d026bc62ffe"/>
+            </line>
+        </band>
+    </detail>
+
+    <!-- Page Footer (Printed on all pages) -->
+    <pageFooter>
+        <band height="30" splitType="Stretch">
+            <line>
+                <reportElement x="0" y="5" width="523" height="1" forecolor="#000000" uuid="9cfc5e8a-78be-40f4-a55e-38df35cc24bf"/>
+            </line>
+
+            <staticText>
+                <reportElement x="0" y="10" width="150" height="15" forecolor="#666666" uuid="e09fa00c-277d-411a-8fc8-5c42511fe0a3"/>
+                <textElement>
+                    <font size="8"/>
+                </textElement>
+                <text><![CDATA[www.elitechlog.com]]></text>
+            </staticText>
+
+            <!-- Page Number Center -->
+            <textField>
+                <reportElement x="240" y="10" width="20" height="15" forecolor="#666666" uuid="e09fa00c-277d-411a-8fc8-5c42511fe0a4"/>
+                <textElement textAlignment="Right">
+                    <font size="8"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$V{PAGE_NUMBER} + "/"]]></textFieldExpression>
+            </textField>
+            <textField evaluationTime="Report">
+                <reportElement x="260" y="10" width="20" height="15" forecolor="#666666" uuid="e09fa00c-277d-411a-8fc8-5c42511fe0a5"/>
+                <textElement textAlignment="Left">
+                    <font size="8"/>
+                </textElement>
+                <textFieldExpression><![CDATA["" + $V{PAGE_NUMBER}]]></textFieldExpression>
+            </textField>
+
+            <textField isBlankWhenNull="true">
+                <reportElement x="320" y="10" width="203" height="15" forecolor="#666666" uuid="fc5e8a7c-48be-40f4-a55e-38df35cc24c4"/>
+                <textElement textAlignment="Right">
+                    <font size="8"/>
+                </textElement>
+                <textFieldExpression><![CDATA["File Name: " + $P{FileName}]]></textFieldExpression>
+            </textField>
+        </band>
+    </pageFooter>
+
+</jasperReport>
