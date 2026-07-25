@@ -10,7 +10,7 @@ A production-grade, highly-extensible, cross-platform Java SDK reverse-engineere
 - **Cross-Platform Support**: Works on Windows, macOS, and Linux out-of-the-box.
 - **Constructor-Based Dependency Injection**: Instantiates device clients directly with the chosen transport, facilitating clean decoupling and easy mocking.
 - **Protocol Frame Assembly**: Accurate binary framing for supported operations: `GetParameter`, `SetParameter`, `GetRecord`, `Format`, and `Stop` command sequences.
-- **Universal Exporters**: Beautiful, rich document exporters covering PDF, CSV, TXT, and Excel (XLSX) reports containing complete logger diagnostics, JFreeChart graphs, and record tables.
+- **Universal Exporters**: Beautiful, rich document exporters covering PDF, CSV, TXT, Excel (XLSX), and high-fidelity **JasperReports-based PDF** reports containing complete logger diagnostics, JFreeChart graphs, and record tables.
 
 ---
 
@@ -65,6 +65,7 @@ public class Main {
         // 4. Export to multi-format reports
         CsvExporter.exportToCsv("report.csv", params, records);
         PdfExporter.exportToPdf("report.pdf", params, records);
+        JasperExporter.exportToPdf("report_jasper.pdf", params, records);
         ExcelExporter.exportToExcel("report.xlsx", params, records);
 
         // 5. Safe disconnection
