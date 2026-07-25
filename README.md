@@ -7,9 +7,10 @@ A production-grade, highly-extensible, cross-platform Java SDK reverse-engineere
 ## Features
 
 - **Fluent High-Level API**: Easy-to-use API syntax for all typical logging procedures.
-- **Cross-Platform Support**: Works on Windows, macOS, and Linux out-of-the-box. Includes robust mock-connection drivers for seamless non-hardware integration testing.
+- **Cross-Platform Support**: Works on Windows, macOS, and Linux out-of-the-box.
+- **Constructor-Based Dependency Injection**: Instantiates device clients directly with the chosen transport, facilitating clean decoupling and easy mocking.
 - **Protocol Frame Assembly**: Accurate binary framing for supported operations: `GetParameter`, `SetParameter`, `GetRecord`, `Format`, and `Stop` command sequences.
-- **Universal Exporters**: Beautiful, rich document exporters covering PDF, CSV, TXT, and Excel (XLSX) reports containing complete logger diagnostics and record tables.
+- **Universal Exporters**: Beautiful, rich document exporters covering PDF, CSV, TXT, and Excel (XLSX) reports containing complete logger diagnostics, JFreeChart graphs, and record tables.
 
 ---
 
@@ -24,6 +25,7 @@ To include the SDK, build the project and import the dependencies:
 - **OpenPDF**: For standard open-source PDF reporting.
 - **Apache POI**: For XLSX spreadsheet reports.
 - **jSerialComm**: Cross-platform pure-Java serial framework.
+- **JFreeChart**: For PDF report charts rendering.
 
 ---
 
@@ -32,7 +34,7 @@ To include the SDK, build the project and import the dependencies:
 ### Fluent Connection & Diagnostic Acquisition
 ```java
 import elitech.api.ElitechDevice;
-import elitech.api.ElitechDeviceManager;
+import elitech.api.MockUsbTransport;
 import elitech.model.Parameters;
 import elitech.model.Record;
 import elitech.report.CsvExporter;
@@ -44,8 +46,8 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        // 1. Initialize Elitech Device using Mock or Real Driver Connection
-        ElitechDevice device = ElitechDeviceManager.createMockUsbDevice();
+        // 1. Initialize Elitech Device using Constructor-based Dependency Injection
+        ElitechDevice device = new ElitechDevice(new MockUsbTransport());
 
         // 2. Execute connection, read parameters, and download records fluently
         device.connect()
@@ -81,10 +83,10 @@ public class Main {
 ├── README.md                 # Project Overview and Quickstart Guide
 └── src
     ├── main/java/elitech/
-    │   ├── api/              # Elitech API Client & Transport Layer
+    │   ├── api/              # Elitech API Client & Transport Layer (direct DI connection classes)
     │   ├── model/            # Logger Parameters, Record Models, and Device registry
     │   ├── protocol/         # Packet assemblers and parsing engine
-    │   └── report/           # CSV, TXT, Excel (Apache POI), and PDF exporters
+    │   └── report/           # CSV, TXT, Excel (Apache POI), and PDF exporters with JFreeChart
     └── test/java/elitech/    # Comprehensive JUnit 5 Test Suite
 ```
 

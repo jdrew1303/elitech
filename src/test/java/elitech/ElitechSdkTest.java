@@ -1,7 +1,7 @@
 package elitech;
 
 import elitech.api.ElitechDevice;
-import elitech.api.ElitechDeviceManager;
+import elitech.api.MockUsbTransport;
 import elitech.model.DeviceModel;
 import elitech.model.Parameters;
 import elitech.model.Record;
@@ -76,7 +76,8 @@ public class ElitechSdkTest {
 
     @Test
     public void testFluentMockDeviceWorkflow() throws IOException {
-        ElitechDevice device = ElitechDeviceManager.createMockUsbDevice();
+        // Instantiate ElitechDevice using direct dependency injection via Constructor
+        ElitechDevice device = new ElitechDevice(new MockUsbTransport());
         assertNotNull(device);
 
         // Run full fluent sequence
